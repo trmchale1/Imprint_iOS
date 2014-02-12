@@ -6,17 +6,30 @@
 //  Copyright (c) 2014 Tim McHale. All rights reserved.
 //
 
+
 #import "TMAppDelegate.h"
+#import "Parse/Parse.h"
 
 @implementation TMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    [FBLoginView class];
+    [Parse setApplicationId:@"jk0UNnRcqs5nJR9ZU8cfVtmyqTQB36pthAxxac99"
+                  clientKey:@"dJicuVedAazv1FcZXgcngREuYx6mJl9W0ZrU9HRq"];
     return YES;
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    // Call FBAppCall's handleOpenURL:sourceApplication to handle Facebook app responses
+    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    
+    // You can add your app-specific url handling code here if needed
+    
+    return wasHandled;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
